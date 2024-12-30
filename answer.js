@@ -1,22 +1,20 @@
 const fs = require('fs');
 
-// Function to read input from a JSON file
 const readInputFromFile = (filePath) => {
   try {
-    const data = fs.readFileSync(filePath, 'utf8'); // Read file synchronously
-    return JSON.parse(data); // Parse JSON content
+    const data = fs.readFileSync(filePath, 'utf8'); 
+    return JSON.parse(data); 
   } catch (error) {
     console.error(`Error reading or parsing the file: ${error.message}`);
-    process.exit(1); // Exit the program with an error code
+    process.exit(1); 
   }
 };
 
-// Decode the y-value from the given base
 const decodeValue = (value, base) => {
-  return parseInt(value, base); // Convert the value from the given base to an integer
+  return parseInt(value, base); 
 };
 
-// Create the Vandermonde matrix
+
 const createVandermondeMatrix = (x, k) => {
   const matrix = [];
   for (let i = 0; i < k; i++) {
@@ -29,7 +27,6 @@ const createVandermondeMatrix = (x, k) => {
   return matrix;
 };
 
-// Invert a matrix using Gaussian elimination
 const invertMatrix = (matrix) => {
   const size = matrix.length;
   const augmented = matrix.map((row, i) =>
@@ -61,7 +58,6 @@ const multiplyMatrix = (matrix, vector) => {
   );
 };
 
-// Parse the input to extract points
 const parseInput = (data) => {
   const points = [];
   const { keys, ...values } = data;
@@ -79,7 +75,6 @@ const parseInput = (data) => {
   return { points, n, k };
 };
 
-// Main function to find the constant term
 const findSecretConstant = (data) => {
   const { points, k } = parseInput(data);
 
@@ -94,10 +89,9 @@ const findSecretConstant = (data) => {
   const invertedMatrix = invertMatrix(vandermonde);
   const coefficients = multiplyMatrix(invertedMatrix, y);
 
-  return Math.round(coefficients[k - 1]); // The constant term is the last coefficient
+  return Math.round(coefficients[k - 1]);
 };
 
-// Read test cases from JSON files
 const testcaseFile1 = './testcase1.json';
 const testcaseFile2 = './testcase2.json';
 
